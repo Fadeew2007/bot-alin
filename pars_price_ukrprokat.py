@@ -3,18 +3,20 @@ import aiohttp
 from bs4 import BeautifulSoup
 from telegram.ext import Application
 import time
+import os
+from aiohttp import web
 
 async def fetch_price_and_name(session, url):
     async with session.get(url) as response:
         content = await response.text()
         soup = BeautifulSoup(content, 'html.parser')
-        product_name = soup.find('h1').text.strip()  # Змініть селектор, якщо потрібно
+        product_name = soup.find('h1').text.strip()
         price_elements = soup.find_all(class_='block px-6 py-2')
-        price = price_elements[4].text.strip()  # Адаптуйте індекс, якщо структура сторінки це вимагає
+        price = price_elements[4].text.strip()
         return product_name, price
 
 async def track_price_changes(token, chat_id, url, start_delay, check_interval=30):
-    await asyncio.sleep(start_delay)  # Затримка перед початком моніторингу
+    await asyncio.sleep(start_delay)
     app = Application.builder().token(token).build()
     async with aiohttp.ClientSession() as session:
         last_price = None
@@ -30,15 +32,23 @@ async def track_price_changes(token, chat_id, url, start_delay, check_interval=3
                 print(f'Помилка під час виконання скрипта: {e}')
             await asyncio.sleep(check_interval)
 
+async def start_server():
+    app = web.Application()
+    app.router.add_get('/', lambda request: web.Response(text="Server is running"))
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 80)
+    await site.start()
+
 async def main():
-    TOKEN = '7081365803:AAG0I20iXpdo3vDOJ_PsndeEslZzYwuUwcM'
-    CHAT_ID = '530420753'
+    TOKEN = 'your_token_here'
+    CHAT_ID = 'your_chat_id_here'
     products = [
         {"url": "https://alin.ua/info-car/ford-fiesta-hatchback-lviv", "delay": 0},
-        {"url": "https://alin.ua/info-car/ravon-r2", "delay": 10},  # Затримка 10 секунд
+        {"url": "https://alin.ua/info-car/ravon-r2", "delay": 10},
     ]
 
-    tasks = []
+    tasks = [start_server()]
     for product in products:
         task = track_price_changes(TOKEN, CHAT_ID, product['url'], product['delay'])
         tasks.append(task)
