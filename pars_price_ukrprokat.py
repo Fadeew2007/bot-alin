@@ -41,8 +41,8 @@ async def start_server():
     await site.start()
 
 async def main():
-    TOKEN = 'your_token_here'
-    CHAT_ID = 'your_chat_id_here'
+    TOKEN = '7081365803:AAG0I20iXpdo3vDOJ_PsndeEslZzYwuUwcM'
+    CHAT_ID = '530420753'
     products = [
         {"url": "https://alin.ua/info-car/ford-fiesta-hatchback-lviv", "delay": 0},
         {"url": "https://alin.ua/info-car/ravon-r2", "delay": 10},
