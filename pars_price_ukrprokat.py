@@ -47,10 +47,10 @@ async def main():
     CHAT_ID = '530420753'
     products = [
         {"url": "https://ukr-prokat.com/orenda-avto/ravon-r2-shevrolet-spark.html", "indices": [1, 2, 3, 4], "delay": 0},
-        {"url": "https://ukr-prokat.com/orenda-avto/hyundai-accent.html", "indices": [1, 2, 3, 4], "delay": 10},
-        {"url": "https://ukr-prokat.com/orenda-avto/suzuki-vitara.html", "indices": [1, 2, 3, 4], "delay": 20},
-        {"url": "https://ukr-prokat.com/orenda-avto/kia-sportage-2019-2.html", "indices": [1, 2, 3, 4], "delay": 30},
-        {"url": "https://ukr-prokat.com/orenda-avto/toyota-rav4.html", "indices": [1, 2, 3, 4], "delay": 40},
+        {"url": "https://ukr-prokat.com/orenda-avto/hyundai-accent.html", "indices": [1, 2, 3, 4], "delay": 60},
+        {"url": "https://ukr-prokat.com/orenda-avto/suzuki-vitara.html", "indices": [1, 2, 3, 4], "delay": 120},
+        {"url": "https://ukr-prokat.com/orenda-avto/kia-sportage-2019-2.html", "indices": [1, 2, 3, 4], "delay": 180},
+        {"url": "https://ukr-prokat.com/orenda-avto/toyota-rav4.html", "indices": [1, 2, 3, 4], "delay": 240},
     ]
 
     tasks = [start_server()]
